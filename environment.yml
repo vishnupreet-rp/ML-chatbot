@@ -1,0 +1,9 @@
+name: chatbot-environment
+channels:
+  - conda-forge
+dependencies:
+  - python
+  - numpy
+  - sklearn
+  - nltk
+  - pip
