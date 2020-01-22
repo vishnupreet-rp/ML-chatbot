@@ -1,0 +1,229 @@
+Classification
+
+Assigning a class / category to each of the observations in a dataset is called classification. It is done a posteriori, once the data is recovered.
+
+Example: classifying consumers reasons of visit in store in order to send them a personalized campaign.
+
+Prediction
+
+A prediction is made on a new observation. When it comes to a numerical variable (continuous) we speak of regression.
+
+Example: predicting a heart attack based on data from an electro cardiogram.
+
+2. Supervised and unsupervised learning
+
+Supervised
+
+You already have tags on historical data and want to classify new data according to these tags. The number of classes is known.
+
+Example: in botany you made measurements (length of the stem, petals, …) on 100 plants of 3 different species. Each of the measurements is labeled with the species of the plant. You want to build a model that will automatically tell which species a new plant belongs to thanks to the same measurements.
+
+Unsupervised
+
+On the contrary, in unsupervised learning, you have no labels, no predefined classes. You want to identify common patterns in order to form homogeneous groups based on your observations.
+
+Examples: You want to classify your customers based on their browsing history on your website but you have not formed groups and are in an exploratory approach to see what would be the common points between them. In this case a clustering algorithm is adapted.
+
+Some neural network algorithms will be able to differentiate between human and animal images without prior labeling.
+
+II. Machine Learning Algorithms
+
+We will describe 8 algorithms used in Machine Learning. The objective here is not to go into the details of the models but rather to give the reader elements of understanding on each of them.
+
+
+A decision tree is used to classify future observations given a body of already labeled observations. This is the case of our botanical example where we already have 100 sightings classified in species A, B and C.
+
+The tree begins with a root (where we still have all our observations) then comes a series of branches whose intersections are called nodes and ends are called leaves, each corresponding to one of the classes to predict. The depth of the tree is refers to the maximum number of nodes before reaching a leaf. Each node of the tree represents a rule (example: length of the petal greater than 2.5 cm). To browse the tree is to check a series of rules. The tree is constructed in such a way that each node corresponds to the rule that best divides the set of initial observations (variable and threshold).
+
+Example:
+
+Decsion tree data
+
+Decision Tree
+
+The tree has a depth of 2 (one node plus the root). The length of the petal is the first measure that is used because it best separates the 4 observations according to class membership (here class B).
+
+
+As the name might suggest, the random forest algorithm is based on a multitude of decision trees.
+
+In order to understand better the advantages and logic of this algorithm, let’s start with an example:
+
+You are looking for a good travel destination for your next vacation. You ask your best friend for his opinion. He asks you questions about your previous trips and makes a recommendation.
+
+You decide to ask a group of friends who ask you questions randomly. They each make a recommendation. The chosen destination is the one that has been the most recommended by your friends.
+
+The recommendations made by your best friend and the group will both make good destination choices. But when the first recommendation method works very well for you, the second will be more reliable for other people.
+
+This comes from the fact that your best friend, who builds a decision tree to give you a destination recommendation, knows you very well what making the decision tree over-learned about you (we talk about overfitting).
+
+Your friend group represents the random forest of multiple decision trees and it’s a model, when used properly, avoids the pitfall of overfitting. How is this forest built?
+
+Here are the main steps:
+
+1. We take a number X of observations from the starting dataset (with discount).
+
+2. We take a number K of the M variables available (features), for example: only temperature and population density
+
+3. We create a decision tree on this dataset.
+
+4. Steps 1. to 4. are repeated N times so as to obtain N trees.
+
+To obtain the class of a new observation we go down the N trees. Each tree will predict a different class. The class chosen is the one that is most represented among all the trees in the forest. (Majority vote / ‘Ensemble’).
+
+3. The “Gradient Boosting” / “XG Boost”
+
+The boosting gradient method is used to reinforce a model that produces weak predictions, such as a decision tree (see below how do we judge the quality of a model).
+
+We will explain the principle of boosting gradient with the decision tree but this could be with another model.
+
+You have an individual database with demographics information and past activities. You have 50% of individuals their age but the other half is unknown.
+
+You want to get the age of a person according to his activities: food shopping, television, gardening, video games … You choose as a model a decision tree, in this case it is a regression tree because the value to predict is numeric.
+
+Your first regression tree is satisfying but can be improved: it predicts, for example, that an individual is 19 years old when in fact he is 13 years old, and for another 55 years old instead of 68 years old.
+
+The principle of the gradient boosting is that you will redo a model on the difference between the predicted value and the true value to be predicted.
+
+Age	Prediction Tree 1	Difference	Prediction Tree 2
+13	19	-6	15
+68	55	+13	63
+This step N is repeated where N is determined by successively minimizing the error between the prediction and the true value.
+
+The method to optimize is the gradient descent method that we will not explain here. The XG Boost (eXtreme Gradient Boosting) model is one of the implementations of the boosting gradient founded by Tianqi Chen and has seduced the Kaggle datascientist community with its efficiency and performance. The publication explaining the algorithm is here.
+
+As their name suggests genetic algorithms are based on the process of genetic evolution that has made us who we are …
+
+More prosaically they are mainly used when there are no observations of departure and it is hoped that a machine will learn to learn as and when testing.
+
+These algorithms are not the most effective for a specific problem but rather for a set of subproblems (eg learning balance and walking in robotics).
+
+Let’s take a simple example: We want to find the code of a safe that is made of 15 letters: “MACHINELEARNING”
+
+The genetic algorithm approach will be as follows:
+
+We start from a population of 10,000 “chromosomes” of 15 letters each. We say that the code is a word or a set of words pro
+
+
+
+
+
+
+
+We will define a method of reproduction: for example, to combine the beginning of one chromosome with the end of another.
+
+Ex: “DEEP-LEARNING” + “STATISTICAL-INFERENCE” = “DEEP-INFERENCE”
+
+Then we will define a mutation method which allows to change a progeny that is blocked. In our case it could be to vary one of the letters randomly. Finally we define a score that will reward such or such descendants of chromosomes. In our case where the code is hidden we can imagine a sound that the trunk would do when 80% of the letters are similar and that would become stronger as we approach the right code.
+
+Our genetic algorithm will start from the initial population and form chromosomes until the solution has been found.
+
+5. “Support Vector Machines”
+
+Also known as “SVM” this algorithm is mainly used for classification problems even though it has been extended to regression problems (Drucker et al., 96).
+
+Let’s take our example of ideal holiday destinations. For the simplicity of our example consider only 2 variables to describe each city: the temperature and the density of population. We can therefore represent cities in 2 dimensions.
+
+We represent by circles cities which you very much appreciated and by squares those which you least appreciated. When you consider new cities you want to know which group this new city is closest to.
+
+SVM Optimal Plane
+SVM Example
+As we see in the graph on the right, there are many plans (straight lines when you only have 2 dimensions) that separate the two groups.
+
+We will choose the line that is at the maximum distance between the two groups. To build it we already see that we do not need all the points, it is enough to take the points which are at the border of their group we call these points or vectors, the support vectors. The planes passing through these support vectors are called support planes. The separation plan will be the one that will be equidistant from the two supporting planes.
+
+What to do if the groups are not so easily separable, for example if by one of the dimensions circles are mixed up with squares or vice-versa?
+
+We will proceed to a transformation of these points by a function to be able to separate them. As in the example below:
+
+SVM transformation example
+SVM transformation example
+The SVM algorithm will therefore consist of looking for both the optimal hyperplane and minimizing classification errors.
+
+
+Pause. After 5 relatively technical models the algorithm of the K nearest neighbors will appear to you as a formality. Here’s how it works:
+
+An observation is assigned the class of its nearest K neighbors.
+
+“That’s it ?!” you might ask me.
+
+Yes that’s all. Only as the following example shows: K’s choice can matter a lot.
+
+K nearest neighbours
+K nearest neighbours
+We will typically try different values ​​of K to obtain the most satisfactory separation.
+
+
+Let’s start by a reminder of linear regression. Linear regression is used to predict a numerical variable, e.g the price of cotton in relation to other numeric or binary variables: the number of cultivable hectares, the demand for cotton from various industries, and so on.
+
+It is a question of finding the coefficients a1, a2, … in order to have the best estimate:
+
+Cotton price = a1 * Number of hectares + a2 * Demand for cotton + …
+
+Logistic regression is used in classification in the same way as the algorithms exposed so far. Once again let’s take the example of trips considering only two classes: good destination (Y = 1) and bad destination (Y = 0).
+
+P (1): probability the city is a good destination.
+
+P (0): probability that the city is a bad destination.
+
+The city is represented by a number of variables, we will only consider two: the temperature and population density.
+
+X = (X1: temperature, X2: population density)
+We are therefore interested in building a function that gives us for a city X:
+
+P (1 | X): probability that the destination is good knowing X, which is to say probability that the city checking X is a good destination.
+We would like to relate this probability to a linear combination as a linear regression. Only the probability P (1 | X) varies between 0 and 1 except we want a function that traverses the whole domain of real numbers (from -infinite to + infinity).
+
+For that we will start by considering P (1 | X) / (1 – P (1 | X)) which is the ratio between the probability that the destination is good and that the destination is bad.
+
+For strong probabilities this ratio approaches + infinity (for example a probability of 0.99 gives 0.99 / 0.01 = 99) and for low probabilities it approaches 0: (a probability of 0.01 gives 0.01 / 0.99 = 0.0101 ).
+
+We went from [0,1] to [0, + infinite [. To extend the ‘scope’ of the possible values ​​to] -infinite, 0] we take the natural logarithm of this ratio.
+
+It follows that we are looking for b0, b1, b2, … such as:
+
+ln (P (1 | X) / (1-P (1 | X)) = b0 + b1X1 + b2X2
+The right part represents the regression and the logarithm of Neperian denotes the logistic part.
+
+The logistic regression algorithm will therefore find the best coefficients to minimize the error between the prediction made for visited destinations and the true label (good, bad) given.
+
+
+Supervised vs. Unsupervised learning. Do you remember?
+
+Until now we have described supervised learning algorithms. Classes are known and we want to classify or predict a new observation. But how to do when there is no predefined group? When you are looking for patterns shared by groups of people?
+
+Here comes unsupervised learning and clustering algorithms.
+
+Take the example of a company that started its digital transformation. It has new sales and communication channels through its site and one or more associated mobile applications. In the past, it was addressing it’s clients based on demographics and their purchase history. But how to exploit the navigation data of its customers? Does online behavior match classic customer segments?
+
+These questions can motivate the use of clustering to see if major trends are emerging. This will invalidate or confirm business intuitions that you may have.
+
+There are many clustering algorithms (hierarchical clustering, k-means, DBSCAN, …). One of the most used is the k-means algorithm. We will explain the operation simply:
+
+Even if we do not know how the clusters will be constituted, the k-means algorithm imposes to give the expected number of clusters. Techniques exist to find the optimal number of clusters.
+
+Consider the example of cities. Our dataset has 2 variables, so we have 2 dimensions. After a first study we expect to have 2 clusters. We begin by randomly placing two points; they represent our starter ‘means’. We associate with the same clusters the observations closest to these means. Then we calculate the average of the observations of each cluster and move the means to the computed position. We re-assign the observations to the nearest means and so on.
+
+
+To ensure the stability of the groups found it is recommended to repeat the draw of the initial ‘means’ several times because some initial draws may give a configuration different from the vast majority of cases.
+
+Factors of Relevance and Quality of Machine Learning Algorithms
+
+Machine learning algorithms are evaluated on the basis of their ability to correctly classify or predict both the observations that were used to train the model (training and test game) but also and especially observations for which the label or value is known and has not been used in the development of the model (validation set).
+
+Proper classification implies both placing the observations in the correct group and at the same time not placing them in the wrong groups.
+
+The chosen metric may vary depending on the intent of the algorithm and its business usage.
+
+Several data factors can play a big role in the quality of the algorithms. Here are the main ones:
+
+1. The number of observations:
+
+the fewer observations there are, the more difficult the analysis,
+but the more there is, the more the need for computer memory is high and the longer is the analysis)
+2. The number and quality of attributes describing these observations
+
+For example the distance between two numeric variables (price, size, weight, light intensity, noise intensity, etc.) is easy to establish, that between two categorical attributes (color, beauty, utility …) is more delicate;
+
+3. The percentage of data filled in and missing
+
+4. “Noise”: the number and “location” of dubious values ​​(potential errors, outliers …) or of course not conforming to the pattern of general distribution of “examples” on their distribution space will have an impact on the quality of the ‘analysis.
